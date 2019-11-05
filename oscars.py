@@ -3,4 +3,4 @@ from app.models import NomineeLookup, CategoryLookup, RottenTomatoes, CategoryNo
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'NomineeLookup': NomineeLookup, 'CategoryLookup': CategoryLookup, 'RottenTomatoes': RottenTomatoes, 'CategoryNominee': CategoryNominee, 'AwardLookup': AwardLookup, 'AwardWinner': AwardWinner, 'AppUser': AppUser, 'Pick': Pick}
+    return {'db': db, 'NoemineeLookup': NomineeLookup, 'CategoryLookup': CategoryLookup, 'RottenTomatoes': RottenTomatoes, 'CategoryNominee': CategoryNominee, 'AwardLookup': AwardLookup, 'AwardWinner': AwardWinner, 'AppUser': AppUser, 'Pick': Pick}
