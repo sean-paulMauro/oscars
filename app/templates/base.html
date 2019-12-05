@@ -7,6 +7,7 @@
     <body>
         <div>2020 Oscars: 
             <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('categories') }}">Categories</a>
             {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}

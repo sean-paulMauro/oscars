@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Categories</h1>
+    <input type="submit" name="add_category" value="Add a Category">
+    <br>
+    <br>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.points }}</td>
+        <td>{{ row.notes }}</td>
+    </tr>
+    {% endfor %}
+{% endblock %}

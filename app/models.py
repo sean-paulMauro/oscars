@@ -70,6 +70,7 @@ class AppUser(UserMixin, db.Model):
     picks = db.relationship('Pick', backref='picker', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    admin = db.Column(db.String(10))
     
     def __repr__(self):
         return '<User {}>'.format(self.email)
@@ -79,6 +80,9 @@ class AppUser(UserMixin, db.Model):
         
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def is_super_admin(self, user):
+        return AppUser.query.get(int(id))
         
 class Pick(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import AppUser
+from app.models import AppUser, CategoryLookup
 from werkzeug.urls import url_parse
 from datetime import datetime
 
@@ -72,4 +72,10 @@ def edit_profile():
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', title='Edit Profile', form=form)    
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+@app.route('/categories', methods=['GET', 'POST'])
+@login_required
+def categories():
+    rows = CategoryLookup.query.all()
+    return render_template('categories.html', title='Categories', rows=rows)
