@@ -46,3 +46,4 @@ jinja2.exceptions.UndefinedError: 'app.forms.EditProfileForm object' has no attr
 2019-12-04 21:03:46,222 INFO: Oscars startup [in /home/sean-paulmauro/oscars/app/__init__.py:39]
 2019-12-04 21:38:39,730 INFO: Oscars startup [in /home/sean-paulmauro/oscars/app/__init__.py:39]
 2019-12-04 21:42:50,928 INFO: Oscars startup [in /home/sean-paulmauro/oscars/app/__init__.py:39]
+2019-12-26 11:45:41,460 INFO: Oscars startup [in /home/sean-paulmauro/oscars/app/__init__.py:39]

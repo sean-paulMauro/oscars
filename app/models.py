@@ -2,15 +2,10 @@ from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-#from sqlalchemy.ext.declarative import declarative_base
-#from sqlalchemy_imageattach.entity import Image, image_attachment
-
-#Base = declarative_base()
 
 class NomineeLookup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(500), index=True)
-    #image = image_attachment('NomineePicture')
     year = db.Column(db.Integer)
     
     def __repr__(self):
@@ -90,11 +85,7 @@ class Pick(db.Model):
     app_user_id = db.Column(db.Integer, db.ForeignKey('app_user.id'))  
     
     def __repr__(self):
-        return '<Pick {}>'.format(self.app_user_id + self.category_nominee_id)   
-        
-#class NomineePicture(Base, Image):
- #   id = db.Column(db.Integer, primary_key=True)
- #   nominee_id = db.Column(db.Integer, db.ForeignKey('nominee_lookup.id'))
+        return '<Pick {}>'.format(self.app_user_id + self.category_nominee_id)
     
 @login.user_loader
 def load_user(id):

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, SubmitCategoryForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import AppUser, CategoryLookup
 from werkzeug.urls import url_parse
@@ -77,5 +77,20 @@ def edit_profile():
 @app.route('/categories', methods=['GET', 'POST'])
 @login_required
 def categories():
+    if request.method == "POST":
+        if request.form.get('add_category') == "Add a Category":
+            return redirect(url_for('submit_category'))
     rows = CategoryLookup.query.all()
     return render_template('categories.html', title='Categories', rows=rows)
+
+@app.route('/submit_category', methods=['GET', 'POST'])
+def submit_category():
+    form = SubmitCategoryForm()
+    if form.validate_on_submit():
+        category = CategoryLookup(name=form.category.data,
+            points=form.points.data, notes=form.notes.data)
+        db.session.add(category)
+        db.session.commit()
+        flash('Category added!')
+        return redirect(url_for('categories'))
+    return render_template('submit_category.html', title='Submit category', form=form)

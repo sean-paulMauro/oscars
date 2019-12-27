@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import AppUser
 
@@ -26,3 +26,9 @@ class RegistrationForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
+
+class SubmitCategoryForm(FlaskForm):
+    category = StringField('Category name', validators=[DataRequired()])
+    points = SelectField('Points', coerce=int, choices=[(1, 1), (2, 2)])
+    notes = StringField('Notes')
+    submit = SubmitField('Add Category')

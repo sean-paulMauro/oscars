@@ -2,9 +2,11 @@
 
 {% block content %}
     <h1>Categories</h1>
-    <input type="submit" name="add_category" value="Add a Category">
+    <form method="post">
+        <input type="submit" name="add_category" value="Add a Category">
+    </form>
     <br>
-    <br>
+    <table>
     {% for row in rows %}
     <tr>
         <td>{{ row.id }}</td>
@@ -13,4 +15,5 @@
         <td>{{ row.notes }}</td>
     </tr>
     {% endfor %}
+    </table>
 {% endblock %}
