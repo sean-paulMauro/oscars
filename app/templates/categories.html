@@ -7,6 +7,8 @@
     </form>
     <br>
     <table>
+    <thead><tr><th>ID</th><th>Category</th><th>Points</th><th>Notes</th></tr></thead>
+    <tbody>
     {% for row in rows %}
     <tr>
         <td>{{ row.id }}</td>
@@ -15,5 +17,6 @@
         <td>{{ row.notes }}</td>
     </tr>
     {% endfor %}
+    </tbody>
     </table>
 {% endblock %}
