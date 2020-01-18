@@ -32,3 +32,8 @@ class SubmitCategoryForm(FlaskForm):
     points = SelectField('Points', coerce=int, choices=[(1, 1), (2, 2)])
     notes = StringField('Notes')
     submit = SubmitField('Add Category')
+
+class SubmitNomineeForm(FlaskForm):
+    nominee = StringField('Nominee name', validators=[DataRequired()])
+    year = SelectField('Year', coerce=int, choices=[(2019, 2019), (2020, 2020)])
+    submit = SubmitField('Add Nominee')
