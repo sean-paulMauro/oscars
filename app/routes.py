@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, SubmitCategoryForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, SubmitCategoryForm, SubmitNomineeForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import AppUser, CategoryLookup
+from app.models import AppUser, CategoryLookup, NomineeLookup
 from werkzeug.urls import url_parse
 from datetime import datetime
 
@@ -106,3 +106,26 @@ def submit_category():
         flash('Category added!')
         return redirect(url_for('categories'))
     return render_template('submit_category.html', title='Submit category', form=form)
+
+
+@app.route('/nominees', methods=['GET', 'POST'])
+@login_required
+def nominees():
+    if request.method == "POST":
+        if request.form.get('add_nominee') == "Add a Nominee":
+            return redirect(url_for('submit_nominee'))
+    rows = NomineeLookup.query.all()
+    return render_template('nominees.html', title='Nominees', rows=rows)
+
+
+@app.route('/submit_nominee', methods=['GET', 'POST'])
+def submit_nominee():
+    form = SubmitNomineeForm()
+    if form.validate_on_submit():
+        nominee = NomineeLookup(name=form.nominee.data,
+                                points=form.year.data)
+        db.session.add(nominee)
+        db.session.commit()
+        flash('Nominee added!')
+        return redirect(url_for('nominees'))
+    return render_template('submit_nominee.html', title='Submit nominee', form=form)

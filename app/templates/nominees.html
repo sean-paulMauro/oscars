@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Nominees</h1>
+    <form method="post">
+        <input type="submit" name="add_nominee" value="Add a Nominee">
+    </form>
+    <br>
+    <table>
+    <thead><tr><th>ID</th><th>Nominee</th><th>Points</th></tr></thead>
+    <tbody>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.year }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
