@@ -2,19 +2,50 @@
 
 {% block content %}
     <h1>Nominees</h1>
-    <form method="post">
-        <input type="submit" name="add_nominee" value="Add a Nominee">
-    </form>
+    {% if current_user.is_admin() %}
+        <form method="post">
+            <input type="submit" name="add_nominee" value="Add a Nominee">
+        </form>
+    {% endif %}
     <br>
     <table>
-    <thead><tr><th>ID</th><th>Nominee</th><th>Points</th></tr></thead>
+    <thead><tr><th>ID</th><th>Nominee</th><th>Year</th></tr></thead>
     <tbody>
     {% for row in rows %}
-    <tr>
-        <td>{{ row.id }}</td>
-        <td>{{ row.name }}</td>
-        <td>{{ row.year }}</td>
-    </tr>
+            <tr>
+                <form style="margin-top: 1em; margin-right: 1em" method="POST" action="./update_nominee">
+                    <td>{{ row.id }}
+                        <input type="hidden" value="{{ row.id }}" name="id">
+                    </td>
+                    <td>
+                        {% if current_user.is_admin() %}
+                            <label><input type="text" value="{{ row.name }}" name="name"></label>
+                        {% else %}
+                            {{ row.name }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if current_user.is_admin() %}
+                            <label><input type="text" value="{{ row.year }}" name="year"></label>
+                        {% else %}
+                            {{ row.year }}
+                        {% endif %}
+                    </td>
+                    {% if current_user.is_admin() %}
+                        <td>
+                            <input type="submit" value="Update">
+                        </td>
+                    {% endif %}
+                </form>
+                {% if current_user.is_admin() %}
+                    <td>
+                        <form style="margin-top: 1em; margin-right: 1em" method="POST" action="./delete_nominee">
+                            <input type="hidden" value="{{ row.id }}" name="id">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
     {% endfor %}
     </tbody>
     </table>

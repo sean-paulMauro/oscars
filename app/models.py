@@ -83,6 +83,9 @@ class AppUser(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def is_admin(self):
+        return self.admin and self.admin == 'Y'
+
     def is_super_admin(self, user):
         return AppUser.query.get(int(id))
 
