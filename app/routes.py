@@ -122,10 +122,35 @@ def nominees():
 def submit_nominee():
     form = SubmitNomineeForm()
     if form.validate_on_submit():
-        nominee = NomineeLookup(name=form.nominee.data,
-                                points=form.year.data)
+        nominee = NomineeLookup(name=form.nominee.data, year=form.year.data)
         db.session.add(nominee)
         db.session.commit()
         flash('Nominee added!')
         return redirect(url_for('nominees'))
     return render_template('submit_nominee.html', title='Submit nominee', form=form)
+
+
+@app.route("/update_nominee", methods=["POST"])
+def update_nominee():
+    nominee_id = request.form.get("id")
+    name = request.form.get("name")
+    year = request.form.get("year")
+
+    nominee = NomineeLookup.query.get(nominee_id)
+
+    nominee.name = name
+    nominee.year = year;
+    db.session.commit()
+    flash('Nominee updated!')
+
+    return redirect("/nominees")
+
+
+@app.route("/delete_nominee", methods=["POST"])
+def delete_nominee():
+    nominee = NomineeLookup.query.get(request.form.get("id"))
+    db.session.delete(nominee)
+    db.session.commit()
+    flash('Nominee deleted!')
+
+    return redirect("/nominees")
